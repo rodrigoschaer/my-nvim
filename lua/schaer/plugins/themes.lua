@@ -36,8 +36,9 @@ return {
 			require("rose-pine").setup({
 				disable_background = true,
 			})
-
-			-- ColorMyPencils()
+		end,
+		init = function()
+			-- ColorMyPencils("rose-pine")
 		end,
 	},
 
@@ -46,12 +47,22 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		init = function()
-			ColorMyPencils("catppuccin-mocha")
+			-- ColorMyPencils("catppuccin-mocha")
 		end,
 	},
 
 	{
 		"Mofiqul/dracula.nvim",
 		name = "dracula",
+	},
+	{
+		"navarasu/onedark.nvim",
+		name = "onedark",
+		init = function()
+			require("onedark").setup({
+				style = "cool",
+			})
+			ColorMyPencils("onedark")
+		end,
 	},
 }
