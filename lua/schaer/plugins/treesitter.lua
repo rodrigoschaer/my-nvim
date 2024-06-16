@@ -12,6 +12,7 @@ return { -- Highlight, edit, and navigate code
 			"vimdoc",
 			"go",
 			"kotlin",
+			"javascript",
 			"typescript",
 			"python",
 		},
