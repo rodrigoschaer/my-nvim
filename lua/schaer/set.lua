@@ -11,7 +11,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 
 -- Relative line numbers
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Active line colors
 vim.opt.termguicolors = true
@@ -69,7 +69,7 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Enable smart indent
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 
--- Disable line wrap
-vim.opt.wrap = false
+-- Line wrap
+vim.opt.wrap = true
