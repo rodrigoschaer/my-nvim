@@ -1,7 +1,3 @@
--- Sets leader to space
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- Sets the global boolean have_nerd_font to true
 vim.g.have_nerd_font = true
 
@@ -69,7 +65,7 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Enable smart indent
--- vim.opt.smartindent = true
+vim.opt.smartindent = false
 
 -- Line wrap
 vim.opt.wrap = true
