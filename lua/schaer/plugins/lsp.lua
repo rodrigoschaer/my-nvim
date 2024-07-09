@@ -99,8 +99,8 @@ return { -- LSP Configuration & Plugins
 			clangd = {},
 			gopls = {},
 			pyright = {},
-			rust_analyzer = {},
 			tsserver = {},
+			kotlin_language_server = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			-- TODO: install typescript-tools.nvim
 			-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -129,14 +129,33 @@ return { -- LSP Configuration & Plugins
 		-- You can add other tools here that you want Mason to install
 		-- for you, so that they are available from within Neovim.
 		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format lua code
-			"gopls",
-			"kotlin-language-server",
-			"pyright",
-			"clangd",
-			"tsserver",
-		})
+
+		local ensure_installed_dap = {
+			"debugpy",
+			"codelldb",
+			"cpptools",
+			"delve",
+			"js-debug-adapter",
+			"kotlin-debug-adapter",
+		}
+		vim.list_extend(ensure_installed, ensure_installed_dap)
+
+		local ensure_installed_linters = {
+			"ktlint",
+			"eslint_d",
+			"flake8",
+		}
+		vim.list_extend(ensure_installed, ensure_installed_linters)
+
+		local ensure_installed_formatters = {
+			"prettier",
+			"black",
+			"autoflake",
+			"ktlint",
+			"goimports",
+		}
+		vim.list_extend(ensure_installed, ensure_installed_formatters)
+
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
