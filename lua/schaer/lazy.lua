@@ -14,7 +14,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: plugins can be added with github owner/repo
 require("lazy").setup({ import = "schaer.plugins" }, {
 	install = {
 		missing = true,

@@ -2,6 +2,7 @@ function ColorMyPencils(color)
 	color = color or "rose-pine"
 	vim.cmd.colorscheme(color)
 
+	-- transparent background
 	-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 	-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
@@ -14,7 +15,7 @@ return {
 				-- your configuration comes here
 				-- or leave it empty to use the default settings
 				style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-				transparent = true, -- Enable this to disable setting the background color
+				transparent = false, -- Enable this to disable setting the background color
 				terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
 				styles = {
 					-- Style to be applied to different syntax groups
@@ -26,6 +27,7 @@ return {
 					floats = "dark", -- style for floating windows
 				},
 			})
+			ColorMyPencils("tokyonight")
 		end,
 	},
 
@@ -34,7 +36,7 @@ return {
 		name = "rose-pine",
 		config = function()
 			require("rose-pine").setup({
-				disable_background = true,
+				-- disable_background = true,
 			})
 		end,
 		init = function()
@@ -55,6 +57,7 @@ return {
 		"Mofiqul/dracula.nvim",
 		name = "dracula",
 	},
+
 	{
 		"navarasu/onedark.nvim",
 		name = "onedark",
@@ -62,7 +65,7 @@ return {
 			require("onedark").setup({
 				style = "cool",
 			})
-			ColorMyPencils("onedark")
+			-- ColorMyPencils("onedark")
 		end,
 	},
 }

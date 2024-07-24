@@ -84,5 +84,12 @@ return { -- Telescope: The Fuzzy Finder (files, lsp, etc)
 		vim.keymap.set("n", "<leader>sn", function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
 		end, { desc = "[S]earch [N]eovim files" })
+		-- Colorchemes
+		vim.keymap.set("n", "<leader>cl", function()
+			builtin.colorscheme({
+				enable_preview = true,
+				ignore_builtins = true,
+			})
+		end, { desc = "Opens available [C]o[L]orschemes" })
 	end,
 }
