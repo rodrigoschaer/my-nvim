@@ -14,7 +14,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({ import = "schaer.plugins" }, {
+require("lazy").setup({ { import = "schaer.plugins" }, { import = "schaer.debug" } }, {
 	install = {
 		missing = true,
 		colorscheme = { "catppuccin", "dracula" },
