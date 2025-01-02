@@ -7,7 +7,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 
 -- Relative line numbers
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 -- Active line colors
 vim.opt.termguicolors = true
