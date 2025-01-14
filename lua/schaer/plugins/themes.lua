@@ -27,7 +27,7 @@ return {
 					floats = "dark", -- style for floating windows
 				},
 			})
-			ColorMyPencils("tokyonight")
+			--ColorMyPencils("tokyonight")
 		end,
 	},
 
@@ -49,7 +49,7 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		init = function()
-			-- ColorMyPencils("catppuccin-mocha")
+			ColorMyPencils("catppuccin-frappe")
 		end,
 	},
 

@@ -44,10 +44,12 @@ return { -- LSP Configuration & Plugins
 
 				-- Fuzzy find all the symbols in your current document.
 				--  Symbols are things like variables, functions, types, etc.
-				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+				map("<leader>ds", require("telescope.builtin").lsp_document_symbols,
+					"[D]ocument [S]ymbols")
 
 				-- Fuzzy find all the symbols in your current workspace
-				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
+					"[W]orkspace [S]ymbols")
 
 				-- Rename the variable under your cursor
 				--  Most Language Servers support renaming across files, etc.
@@ -99,7 +101,6 @@ return { -- LSP Configuration & Plugins
 			clangd = {},
 			gopls = {},
 			pyright = {},
-			tsserver = {},
 			kotlin_language_server = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			-- TODO: install typescript-tools.nvim
@@ -165,7 +166,8 @@ return { -- LSP Configuration & Plugins
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities,
+						server.capabilities or {})
 					require("lspconfig")[server_name].setup(server)
 				end,
 			},
