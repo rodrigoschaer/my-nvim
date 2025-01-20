@@ -69,3 +69,6 @@ vim.opt.smartindent = false
 
 -- Line wrap
 vim.opt.wrap = true
+
+-- Sets cursor offset to middle screen
+vim.opt.so = 9999
