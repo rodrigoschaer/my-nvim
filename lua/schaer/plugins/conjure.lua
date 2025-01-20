@@ -8,9 +8,6 @@ return {
 			-- Uncomment this to get verbose logging to help diagnose internal Conjure issues
 			-- This is VERY helpful when reporting an issue with the project
 			-- vim.g["conjure#debug"] = true
-
-			-- Rebind the documentation mapping from K to <prefix>gk
-			vim.g["conjure#mapping#doc_word"] = "<leader>gk"
 		end,
 
 		-- Optional cmp-conjure integration
@@ -20,10 +17,10 @@ return {
 		"PaterJason/cmp-conjure",
 		lazy = true,
 		config = function()
-			-- local cmp = require("cmp")
-			-- local config = cmp.get_config()
-			-- table.insert(config.sources, { name = "conjure" })
-			-- return cmp.setup(config)
+			local cmp = require("cmp")
+			local config = cmp.get_config()
+			table.insert(config.sources, { name = "conjure" })
+			return cmp.setup(config)
 		end,
 	},
 }
