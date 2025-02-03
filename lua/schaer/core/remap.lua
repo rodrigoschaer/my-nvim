@@ -82,3 +82,9 @@ vim.keymap.set(
 	"oif err != nil {<CR>}<Esc>Oreturn err<Esc>",
 	{ desc = "Insert err not null checking in go" }
 )
+
+-- Navigate to previous/next file
+vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>',
+	{ noremap = true, silent = true, desc = "Navigate to previous file on history" })
+vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>',
+	{ noremap = true, silent = true, desc = "Navigate to next file on history" })
