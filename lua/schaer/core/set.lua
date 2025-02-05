@@ -9,16 +9,11 @@ vim.opt.number = true
 -- Relative line numbers
 vim.opt.relativenumber = true
 
--- Active line colors
-vim.opt.termguicolors = true
-vim.api.nvim_set_hl(0, "CursorLineNr", {
-	fg = "#FF00B7",
-	bold = true,
-})
+-- Highlight cursor active line
 vim.opt.cursorline = true
 
 -- Column limit highlight
--- vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80"
 
 -- [[ vim.opt => Options from Vim ]]
 
