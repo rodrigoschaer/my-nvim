@@ -84,7 +84,7 @@ vim.keymap.set(
 )
 
 -- Navigate to previous/next file
-vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>',
+vim.keymap.set("n", "<leader><left>", ":bprevious<CR>",
 	{ noremap = true, silent = true, desc = "Navigate to previous file on history" })
-vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>',
+vim.keymap.set("n", "<leader><right>", ":bnext<CR>",
 	{ noremap = true, silent = true, desc = "Navigate to next file on history" })
