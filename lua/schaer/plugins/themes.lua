@@ -40,7 +40,7 @@ return {
 			})
 		end,
 		init = function()
-			-- ColorMyPencils("rose-pine")
+			ColorMyPencils("rose-pine-moon")
 		end,
 	},
 
@@ -49,7 +49,7 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		init = function()
-			ColorMyPencils("catppuccin-frappe")
+			-- ColorMyPencils("catppuccin-frappe")
 		end,
 	},
 
