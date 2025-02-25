@@ -34,7 +34,7 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Set newrw open window with space PV
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Moves block of code easily
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -82,3 +82,9 @@ vim.keymap.set(
 	"oif err != nil {<CR>}<Esc>Oreturn err<Esc>",
 	{ desc = "Insert err not null checking in go" }
 )
+
+-- Navigate to previous/next file
+vim.keymap.set("n", "<leader><left>", ":bprevious<CR>",
+	{ noremap = true, silent = true, desc = "Navigate to previous file on history" })
+vim.keymap.set("n", "<leader><right>", ":bnext<CR>",
+	{ noremap = true, silent = true, desc = "Navigate to next file on history" })

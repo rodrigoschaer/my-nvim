@@ -20,7 +20,7 @@ return { -- Telescope: The Fuzzy Finder (files, lsp, etc)
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 
 		-- Useful for getting pretty icons, but requires a Nerd Font.
-		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+		{ "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
 	},
 	config = function()
 		-- [[ Configure Telescope ]]
@@ -45,10 +45,10 @@ return { -- Telescope: The Fuzzy Finder (files, lsp, etc)
 		local builtin = require("telescope.builtin")
 
 		-- Open Telescope
-		--vim.keymap.set("n", "<leader>t", te)
+		vim.keymap.set({ "n", "x" }, "<leader>T", "<CMD>Telescope<cr>", { desc = "Open [T]elescope" })
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles", noremap = true })
 		vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 		vim.keymap.set("n", "<leader>sw", function()
 			local word = vim.fn.expand("<cWORD>")

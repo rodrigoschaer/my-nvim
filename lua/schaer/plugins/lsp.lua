@@ -102,11 +102,7 @@ return { -- LSP Configuration & Plugins
 			gopls = {},
 			pyright = {},
 			kotlin_language_server = {},
-			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-			-- TODO: install typescript-tools.nvim
-			-- Some languages (like typescript) have entire language plugins that can be useful:
-			--    https://github.com/pmizio/typescript-tools.nvim
-
+			clojure_lsp = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes { ...},

@@ -26,13 +26,13 @@ local function start_clojure_repl()
 
 	if namespace then
 		local commands = string.format(
-			"clojure\n(ns %s)\n(load-file \"%s\")\n",
+			"clj\n(ns %s)\n(load-file \"%s\")\n",
 			namespace,
 			file_path
 		)
 		vim.fn.chansend(vim.b.terminal_job_id, commands)
 	else
-		vim.fn.chansend(vim.b.terminal_job_id, string.format("clojure\n(load-file \"%s\")\n", file_path))
+		vim.fn.chansend(vim.b.terminal_job_id, string.format("clj\n(load-file \"%s\")\n", file_path))
 	end
 end
 

@@ -9,12 +9,7 @@ vim.opt.number = true
 -- Relative line numbers
 vim.opt.relativenumber = true
 
--- Active line colors
-vim.opt.termguicolors = true
-vim.api.nvim_set_hl(0, "CursorLineNr", {
-	fg = "#FF00B7",
-	bold = true,
-})
+-- Highlight cursor active line
 vim.opt.cursorline = true
 
 -- Column limit highlight
@@ -69,3 +64,6 @@ vim.opt.smartindent = false
 
 -- Line wrap
 vim.opt.wrap = true
+
+-- Sets cursor offset to middle screen
+vim.opt.so = 9999
