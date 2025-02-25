@@ -13,7 +13,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 
 -- Column limit highlight
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
 
 -- [[ vim.opt => Options from Vim ]]
 
