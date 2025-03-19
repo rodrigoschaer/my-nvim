@@ -5,68 +5,107 @@ return { -- LSP Configuration & Plugins
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-		-- Useful status updates for LSP.
 		{ "j-hui/fidget.nvim", opts = {} },
-
-		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-		-- and elegantly composed help section, `:help lsp-vs-treesitter`
+		require("mason").setup()
+		require("mason-lspconfig").setup()
 
-		--  This function gets run when an LSP attaches to a particular buffer.
-		--    That is to say, every time a new file is opened that is associated with
-		--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-		--    function will be executed to configure the current buffer
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+		-- INFO: Separate configuration for servers
+		local servers = {
+			clangd = {},
+			gopls = {},
+			pyright = {},
+			kotlin_language_server = {},
+			clojure_lsp = {},
+			lua_ls = {
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+						diagnostics = { disable = { "missing-fields" } },
+					},
+				},
+			},
+		}
+		require("mason-lspconfig").setup({
+			handlers = {
+				function(server_name)
+					local server = servers[server_name] or {}
+					server.capabilities = capabilities
+
+					require("lspconfig")[server_name].setup(server)
+				end,
+			},
+		})
+
+		-- INFO: adds config for root path in clojure lsp
+		local function custom_clojure_root_dir(pattern)
+			local util = require("lspconfig.util")
+			local fallback = vim.loop.cwd()
+			local patterns = { "project.clj", "deps.edn", "build.boot", "shadow-cljs.edn", ".git", "bb.edn" }
+			local root = util.root_pattern(patterns)(pattern)
+			return (root or fallback)
+		end
+		require 'lspconfig'.clojure_lsp.setup {
+			root_dir = custom_clojure_root_dir
+		}
+
+		-- INFO: install some packages by default
+		local ensure_installed = vim.tbl_keys(servers or {})
+		local ensure_installed_dap = {
+			"debugpy",
+			"codelldb",
+			"cpptools",
+			"delve",
+			"js-debug-adapter",
+			"kotlin-debug-adapter",
+		}
+		local ensure_installed_linters = {
+			"ktlint",
+			"eslint_d",
+			"flake8",
+		}
+		local ensure_installed_formatters = {
+			"prettier",
+			"black",
+			"autoflake",
+			"ktlint",
+			"goimports",
+		}
+		vim.list_extend(ensure_installed, ensure_installed_dap)
+		vim.list_extend(ensure_installed, ensure_installed_linters)
+		vim.list_extend(ensure_installed, ensure_installed_formatters)
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+		-- INFO: Ensure custom keymaps
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 			callback = function(event)
-				-- In this case, we create a function that lets us more easily define mappings specific
-				-- for LSP related items. It sets the mode, buffer and description for us each time.
 				local map = function(keys, func, desc)
-					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					vim.keymap.set("n", keys, func,
+						{ buffer = event.buf, desc = "LSP: " .. desc, noremap = true })
 				end
 
-				-- Jump to the definition of the word under your cursor.
-				--  To jump back, press <C-t>.
 				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-
-				-- Find references for the word under your cursor.
+				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-
-				-- Jump to the implementation of the word under your cursor.
 				map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-
-				-- Jump to the type of the word under your cursor.
 				map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-
-				-- Fuzzy find all the symbols in your current document.
-				--  Symbols are things like variables, functions, types, etc.
 				map("<leader>ds", require("telescope.builtin").lsp_document_symbols,
 					"[D]ocument [S]ymbols")
-
-				-- Fuzzy find all the symbols in your current workspace
 				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
 					"[W]orkspace [S]ymbols")
-
-				-- Rename the variable under your cursor
-				--  Most Language Servers support renaming across files, etc.
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-				-- Execute a code action, usually your cursor needs to be on top of an error
-				-- or a suggestion from your LSP for this to activate.
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-				-- Opens a popup that displays documentation about the word under your cursor
-				--  See `:help K` for why this keymap
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
 
-				-- WARN: This is not Goto Definition, this is Goto Declaration.
-				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-
-				-- The following two autocommands are used to highlight references of the
+				-- INFO: The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if client and client.server_capabilities.documentHighlightProvider then
@@ -81,92 +120,6 @@ return { -- LSP Configuration & Plugins
 					})
 				end
 			end,
-		})
-
-		-- LSP servers and clients are able to communicate to each other what features they support.
-		--  By default, Neovim doesn't support everything that is in the LSP Specification.
-		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-		-- Enable the following language servers
-		--  Add any additional override configuration in the following tables. Available keys are:
-		--  - cmd (table): Override the default command used to start the server
-		--  - filetypes (table): Override the default list of associated filetypes for the server
-		--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-		--  - settings (table): Override the default settings passed when initializing the server.
-		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-		local servers = {
-			clangd = {},
-			gopls = {},
-			pyright = {},
-			kotlin_language_server = {},
-			clojure_lsp = {},
-			lua_ls = {
-				-- cmd = {...},
-				-- filetypes { ...},
-				-- capabilities = {},
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-						diagnostics = { disable = { "missing-fields" } },
-					},
-				},
-			},
-		}
-
-		-- Ensure the servers and tools above are installed
-		-- :Mason
-		require("mason").setup()
-
-		-- You can add other tools here that you want Mason to install
-		-- for you, so that they are available from within Neovim.
-		local ensure_installed = vim.tbl_keys(servers or {})
-
-		local ensure_installed_dap = {
-			"debugpy",
-			"codelldb",
-			"cpptools",
-			"delve",
-			"js-debug-adapter",
-			"kotlin-debug-adapter",
-		}
-		vim.list_extend(ensure_installed, ensure_installed_dap)
-
-		local ensure_installed_linters = {
-			"ktlint",
-			"eslint_d",
-			"flake8",
-		}
-		vim.list_extend(ensure_installed, ensure_installed_linters)
-
-		local ensure_installed_formatters = {
-			"prettier",
-			"black",
-			"autoflake",
-			"ktlint",
-			"goimports",
-		}
-		vim.list_extend(ensure_installed, ensure_installed_formatters)
-
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-		require("mason-lspconfig").setup({
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities,
-						server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
 		})
 	end,
 }
