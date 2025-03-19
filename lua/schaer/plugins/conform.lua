@@ -12,6 +12,7 @@ return { -- Autoformat
 			go = { "gofumpt", "goimports", "golines", "gomodifytags" },
 			python = { "isort", "black" },
 			javascript = { { "prettierd", "prettier" } },
+			typescript = { { "prettierd", "prettier" } },
 			clojure = { "cljfmt" }
 		},
 	},
