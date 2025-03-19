@@ -40,7 +40,7 @@ return {
 			})
 		end,
 		init = function()
-			ColorMyPencils("rose-pine-moon")
+			--ColorMyPencils("rose-pine-moon")
 		end,
 	},
 
@@ -65,7 +65,7 @@ return {
 			require("onedark").setup({
 				style = "cool",
 			})
-			-- ColorMyPencils("onedark")
+			ColorMyPencils("onedark")
 		end,
 	},
 }
