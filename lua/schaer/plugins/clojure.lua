@@ -10,6 +10,12 @@ return {
 			-- vim.g["conjure#debug"] = true
 
 			vim.g["conjure#mapping#prefix"] = ","
+
+			-- Disable the documentation mapping
+			vim.g["conjure#mapping#doc_word"] = false
+
+			-- Rebind it from K to <prefix>gk
+			vim.g["conjure#mapping#doc_word"] = "gk"
 		end,
 
 		-- Optional cmp-conjure integration

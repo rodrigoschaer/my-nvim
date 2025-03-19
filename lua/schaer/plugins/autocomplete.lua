@@ -22,7 +22,8 @@ return { -- Autocompletion
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
-
+		-- Clojure Conjure completion
+		"PeterJason/cmp-conjure",
 		-- Add a bunch of pre-configured snippets,
 		"rafamadriz/friendly-snippets",
 	},
