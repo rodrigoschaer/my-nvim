@@ -37,7 +37,6 @@ require("lazy").setup({ { import = "schaer.plugins" }, { import = "schaer.debug"
 				"tarPlugin",
 				"tohtml",
 				"tutor",
-				"zipPlugin",
 			},
 		},
 	},
