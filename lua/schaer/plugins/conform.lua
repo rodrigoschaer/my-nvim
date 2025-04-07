@@ -11,8 +11,8 @@ return { -- Autoformat
 			kotlin = { "ktlint" },
 			go = { "gofumpt", "goimports", "golines", "gomodifytags" },
 			python = { "isort", "black" },
-			javascript = { { "prettierd", "prettier" } },
-			typescript = { { "prettierd", "prettier" } },
+			javascript = { "prettier" },
+			typescript = { "prettier" },
 			clojure = { "cljfmt" }
 		},
 	},
