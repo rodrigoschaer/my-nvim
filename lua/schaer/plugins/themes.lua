@@ -64,6 +64,9 @@ return {
 		init = function()
 			require("onedark").setup({
 				style = "cool",
+				-- {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'},
+				toggle_style_list = { 'cool', 'light' },
+				toggle_style_key = "<leader>tsk",
 			})
 			ColorMyPencils("onedark")
 		end,
