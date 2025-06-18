@@ -21,6 +21,14 @@ return { -- Telescope: The Fuzzy Finder (files, lsp, etc)
 
 		-- Useful for getting pretty icons, but requires a Nerd Font.
 		{ "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
+
+		-- Useful for greping with args, like regex	
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			-- This will not install any breaking changes.
+			-- For major updates, this must be adjusted manually.
+			version = "^1.0.0",
+		},
 	},
 	config = function()
 		-- [[ Configure Telescope ]]
@@ -31,6 +39,15 @@ return { -- Telescope: The Fuzzy Finder (files, lsp, etc)
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
+				},
+				live_grep_args = {
+					auto_quoting = true, -- enable/disable auto-quoting
+					mappings = { -- extend mappings
+						i = {
+							["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+							["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+						},
+					},
 				},
 			},
 			file_ignore_patterns = { "node_modules", "package-lock.json", ".git" },
@@ -58,6 +75,9 @@ return { -- Telescope: The Fuzzy Finder (files, lsp, etc)
 			builtin.grep_string({ search = vim.fn.input("Grep > ") })
 		end, { desc = "[G]rep [S]tring" })
 		vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+		vim.keymap.set("n", "<leader>fr", function()
+			require("telescope").extensions.live_grep_args.live_grep_args()
+		end, { desc = "[F]ind with [R]egex" })
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 		vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
