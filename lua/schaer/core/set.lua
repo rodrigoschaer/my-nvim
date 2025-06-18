@@ -7,13 +7,13 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 
 -- Relative line numbers
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Highlight cursor active line
 vim.opt.cursorline = true
 
 -- Column limit highlight
--- vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "120"
 
 -- [[ vim.opt => Options from Vim ]]
 
