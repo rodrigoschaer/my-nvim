@@ -16,7 +16,12 @@ return {
 
 			-- Rebind it from K to <prefix>gk
 			vim.g["conjure#mapping#doc_word"] = "gk"
+
 		end,
+		keys = {
+			-- Add custom mapping for running project tests
+			{ ",pt", "<cmd>ConjureEval (run-project-tests)<cr>", desc = "Run project tests" }
+		},
 
 		-- Optional cmp-conjure integration
 		dependencies = { "PaterJason/cmp-conjure", "clojure-vim/vim-jack-in" },
