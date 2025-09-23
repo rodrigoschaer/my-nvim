@@ -15,13 +15,24 @@ return { -- LSP Configuration & Plugins
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+		-- INFO: adds config for root path in clojure lsp
+		local function custom_clojure_root_dir(pattern)
+			local util = vim.lsp.config.util
+			local fallback = vim.loop.cwd()
+			local patterns = { "project.clj", "deps.edn", "build.boot", "shadow-cljs.edn", ".git", "bb.edn" }
+			local root = util.root_pattern(patterns)(pattern)
+			return (root or fallback)
+		end
+
 		-- INFO: Separate configuration for servers
 		local servers = {
 			clangd = {},
 			gopls = {},
 			pyright = {},
 			kotlin_language_server = {},
-			clojure_lsp = {},
+			clojure_lsp = {
+				root_dir = custom_clojure_root_dir
+			},
 			lua_ls = {
 				settings = {
 					Lua = {
@@ -39,22 +50,10 @@ return { -- LSP Configuration & Plugins
 					local server = servers[server_name] or {}
 					server.capabilities = capabilities
 
-					vim.lsp.config(server_name, server)
+					require("lspconfig")[server_name].setup(server)
 				end,
 			},
 		})
-
-		-- INFO: adds config for root path in clojure lsp
-		local function custom_clojure_root_dir(pattern)
-			local util = require("lspconfig.util")
-			local fallback = vim.loop.cwd()
-			local patterns = { "project.clj", "deps.edn", "build.boot", "shadow-cljs.edn", ".git", "bb.edn" }
-			local root = util.root_pattern(patterns)(pattern)
-			return (root or fallback)
-		end
-		vim.lsp.config.clojure_lsp = {
-			root_dir = custom_clojure_root_dir
-		}
 
 		-- INFO: install some packages by default
 		local ensure_installed = vim.tbl_keys(servers or {})
