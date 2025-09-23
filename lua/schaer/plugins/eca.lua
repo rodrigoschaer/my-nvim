@@ -9,12 +9,5 @@ return {
 		{ "<leader>ef", "<cmd>EcaFocus<cr>",  desc = "Focus ECA sidebar" },
 		{ "<leader>et", "<cmd>EcaToggle<cr>", desc = "Toggle ECA sidebar" },
 	},
-	opts = {
-		debug = false,
-		server_path = "",
-		behaviour = {
-			auto_set_keymaps = true,
-			auto_focus_sidebar = true,
-		},
-	}
+	opts = {}
 }
