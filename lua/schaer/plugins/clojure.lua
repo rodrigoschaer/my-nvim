@@ -83,8 +83,8 @@ return {
 			local i = ls.insert_node
 
 			ls.add_snippets("clojure", {
-				s("defn", {
-					t("(defn "), i(1, "function-name"), t({ "", "  []", "  ())" })
+				s("sdefn", {
+					t("(s/defn "), i(1, "function-name"), t({ "", "  []", "  ())" })
 				})
 			})
 		end
