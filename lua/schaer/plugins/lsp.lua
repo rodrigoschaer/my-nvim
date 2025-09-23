@@ -39,7 +39,7 @@ return { -- LSP Configuration & Plugins
 					local server = servers[server_name] or {}
 					server.capabilities = capabilities
 
-					require("lspconfig")[server_name].setup(server)
+					vim.lsp.config(server_name, server)
 				end,
 			},
 		})
@@ -52,7 +52,7 @@ return { -- LSP Configuration & Plugins
 			local root = util.root_pattern(patterns)(pattern)
 			return (root or fallback)
 		end
-		require 'lspconfig'.clojure_lsp.setup {
+		vim.lsp.config.clojure_lsp = {
 			root_dir = custom_clojure_root_dir
 		}
 
