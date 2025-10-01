@@ -88,3 +88,9 @@ vim.keymap.set("n", "<leader><left>", ":bprevious<CR>",
 	{ noremap = true, silent = true, desc = "Navigate to previous file on history" })
 vim.keymap.set("n", "<leader><right>", ":bnext<CR>",
 	{ noremap = true, silent = true, desc = "Navigate to next file on history" })
+
+-- Resize vertical splits
+vim.keymap.set("n", "<leader><", ":vertical resize +5<CR>",
+	{ noremap = true, silent = true, desc = "Increase vertical split size by 5 columns" })
+vim.keymap.set("n", "<leader>>", ":vertical resize -5<CR>",
+	{ noremap = true, silent = true, desc = "Decrease vertical split size by 5 columns" })
