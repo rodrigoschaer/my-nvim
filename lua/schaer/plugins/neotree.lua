@@ -7,8 +7,8 @@ return {
 	},
 	event = "VeryLazy",
 	keys = {
-		{ "<leader>nt", ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
-		{ "<leader><tab>", ":Neotree toggle left<CR>", silent = true, desc = "Left File Explorer" },
+		{ "<leader>nt",    ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
+		{ "<leader><tab>", ":Neotree toggle left<CR>",  silent = true, desc = "Left File Explorer" },
 	},
 	config = function()
 		require("neo-tree").setup({
@@ -54,7 +54,9 @@ return {
 				width = 35,
 			},
 			filesystem = {
+				bind_to_cwd = false,
 				use_libuv_file_watcher = true,
+				follow_current_file = { enabled = true },
 				filtered_items = {
 					hide_dotfiles = false,
 					hide_gitignored = false,
