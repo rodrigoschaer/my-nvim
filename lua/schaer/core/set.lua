@@ -13,7 +13,7 @@ vim.opt.relativenumber = false
 vim.opt.cursorline = true
 
 -- Column limit highlight
-vim.opt.colorcolumn = "120"
+-- vim.opt.colorcolumn = "120"
 
 -- [[ vim.opt => Options from Vim ]]
 
@@ -63,7 +63,7 @@ vim.opt.incsearch = true
 vim.opt.smartindent = false
 
 -- Line wrap
-vim.opt.wrap = true
+vim.opt.wrap = false
 
 -- Sets cursor offset to middle screen
 vim.opt.so = 9999

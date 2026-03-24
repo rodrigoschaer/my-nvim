@@ -90,7 +90,7 @@ vim.keymap.set("n", "<leader><right>", ":bnext<CR>",
 	{ noremap = true, silent = true, desc = "Navigate to next file on history" })
 
 -- Resize vertical splits
-vim.keymap.set("n", "<leader><", ":vertical resize +5<CR>",
+vim.keymap.set("n", "<leader><", ":vertical resize +10<CR>",
 	{ noremap = true, silent = true, desc = "Increase vertical split size by 5 columns" })
-vim.keymap.set("n", "<leader>>", ":vertical resize -5<CR>",
+vim.keymap.set("n", "<leader>>", ":vertical resize -10<CR>",
 	{ noremap = true, silent = true, desc = "Decrease vertical split size by 5 columns" })
