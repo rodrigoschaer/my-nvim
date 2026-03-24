@@ -43,7 +43,19 @@ return {
 			vim.g["conjure#mapping#doc_word"] = false
 			-- Rebind it from K to <prefix>gk
 			vim.g["conjure#mapping#doc_word"] = "gk"
+
+			-- Helper to send code to the REPL using Conjure
+			local function conjure_eval(code)
+				vim.cmd("ConjureEval " .. code)
+			end
+
+			vim.keymap.set('n', ',rs', function()
+				local code =
+				" (do (require 'nu) (require 'clojure.tools.namespace.repl) (clojure.tools.namespace.repl/refresh))"
+				conjure_eval(code)
+			end, { desc = "[R]efresh [S]tate" })
 		end,
+
 		keys = {
 			-- Add custom mapping for running project tests
 			{ ",pt", "<cmd>ConjureEval (run-project-tests)<cr>", desc = "Run project tests" }
