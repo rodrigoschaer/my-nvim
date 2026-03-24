@@ -68,7 +68,20 @@ return {
 				toggle_style_list = { 'cool', 'light' },
 				toggle_style_key = "<leader>tsk",
 			})
-			ColorMyPencils("onedark")
+			-- ColorMyPencils("onedark")
 		end,
 	},
+	{
+		"neanias/everforest-nvim",
+		name = "everforest",
+		version = false,
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("everforest").setup({
+				background = "medium",
+			})
+			require("everforest").load()
+		end,
+	}
 }
