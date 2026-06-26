@@ -24,6 +24,8 @@ return { -- Highlight, edit, and navigate code
 			"kotlin",
 			"javascript",
 			"typescript",
+			"tsx", -- required for React .tsx (typescriptreact)
+			"json",
 			"python",
 			"clojure",
 		}
@@ -44,7 +46,10 @@ return { -- Highlight, edit, and navigate code
 				end
 
 				-- Only proceed if a parser for this language is actually available.
-				if not pcall(vim.treesitter.language.add, lang) then
+				-- `language.add` returns `nil, err` (no exception) on failure, so we
+				-- must check the *return value*, not just that pcall didn't throw.
+				local ok, added = pcall(vim.treesitter.language.add, lang)
+				if not ok or not added then
 					return
 				end
 
