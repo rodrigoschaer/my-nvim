@@ -105,6 +105,7 @@ return { -- LSP Configuration & Plugins
 			"ktlint",
 			"eslint_d",
 			"flake8",
+			"oxlint",
 		}
 		local ensure_installed_formatters = {
 			"prettier",
@@ -112,6 +113,7 @@ return { -- LSP Configuration & Plugins
 			"autoflake",
 			"ktlint",
 			"goimports",
+			"oxfmt",
 		}
 		vim.list_extend(ensure_installed, ensure_installed_dap)
 		vim.list_extend(ensure_installed, ensure_installed_linters)
